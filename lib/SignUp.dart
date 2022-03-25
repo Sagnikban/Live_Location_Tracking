@@ -9,6 +9,7 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   @override
+  TextEditingController EmailController = TextEditingController();
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   Widget build(BuildContext context) {
@@ -30,9 +31,19 @@ class _SignUpState extends State<SignUp> {
                 alignment: Alignment.center,
                 padding: const EdgeInsets.all(10),
                 child: const Text(
-                  'Sign in',
+                  'Sign Up',
                   style: TextStyle(fontSize: 20),
                 )),
+            Container(
+              padding: const EdgeInsets.all(10),
+              child: TextField(
+                controller: EmailController,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Email',
+                ),
+              ),
+            ),
             Container(
               padding: const EdgeInsets.all(10),
               child: TextField(
