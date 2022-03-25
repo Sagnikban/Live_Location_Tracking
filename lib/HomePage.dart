@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:location_tracking_app/SignUp.dart';
+import 'package:location_tracking_app/LogIn.dart';
 class HomePageWidget extends StatefulWidget {
   const HomePageWidget({Key? key}) : super(key: key);
   @override
@@ -23,7 +24,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => SignUp()),
+                    MaterialPageRoute(builder: (context) => LogIn()),
                   );
                 },
                 child: Container(
