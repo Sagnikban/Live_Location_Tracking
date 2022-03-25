@@ -1,4 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:location_tracking_app/HomePage.dart';
+import 'package:location_tracking_app/LogIn.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -9,6 +12,7 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   @override
+  final _auth=FirebaseAuth.instance;
   TextEditingController EmailController = TextEditingController();
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -66,7 +70,7 @@ class _SignUpState extends State<SignUp> {
               ),
             ),
             TextButton(
-              onPressed: () {
+              onPressed: () async{
                 //forgot password screen
               },
               child: const Text('Forgot Password',),
@@ -76,22 +80,41 @@ class _SignUpState extends State<SignUp> {
                 padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                 child: ElevatedButton(
                   child: const Text('Login'),
-                  onPressed: () {
-                    print(nameController.text);
-                    print(passwordController.text);
+                  onPressed: ()async {
+                    try {
+                      final newUser = await _auth.createUserWithEmailAndPassword(
+                          email: EmailController.text,
+                          password: passwordController.text);
+
+                      if(newUser!=null)
+                      {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => HomePageWidget()),
+                        );
+                      }
+                    }
+
+                    catch(e)
+                    {
+
+                    }
                   },
                 )
             ),
             Row(
               children: <Widget>[
-                const Text('Does not have account?'),
+                const Text('Already have an  account?'),
                 TextButton(
                   child: const Text(
                     'Sign in',
                     style: TextStyle(fontSize: 20),
                   ),
                   onPressed: () {
-                    //signup screen
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => LogIn()),
+                    );
                   },
                 )
               ],
