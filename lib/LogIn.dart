@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:location_tracking_app/SignUp.dart';
+import 'package:location_tracking_app/HomePage.dart';
 class LogIn extends StatefulWidget {
   const LogIn({Key? key}) : super(key: key);
 
@@ -8,8 +10,9 @@ class LogIn extends StatefulWidget {
 }
 
 class _LogInState extends State<LogIn> {
+  final _auth=FirebaseAuth.instance;
   @override
-  TextEditingController nameController = TextEditingController();
+  TextEditingController EmailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   Widget build(BuildContext context) {
     return Padding(
@@ -36,10 +39,10 @@ class _LogInState extends State<LogIn> {
             Container(
               padding: const EdgeInsets.all(10),
               child: TextField(
-                controller: nameController,
+                controller: EmailController,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'User Name',
+                  labelText: 'Email',
                 ),
               ),
             ),
@@ -65,10 +68,25 @@ class _LogInState extends State<LogIn> {
                 padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                 child: ElevatedButton(
                   child: const Text('Login'),
-                  onPressed: () {
-                    print(nameController.text);
-                    print(passwordController.text);
-                  },
+                  onPressed: () async{
+                    try {
+                      final user = await _auth.signInWithEmailAndPassword(
+                          email: EmailController.text,
+                          password: passwordController.text);
+
+                      if(user!=null)
+                        {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => HomePageWidget()),
+                          );
+                        }
+                    }
+                    catch(e)
+                    {
+                      print(e);
+                    }
+                  }
                 )
             ),
             Row(
