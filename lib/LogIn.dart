@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:location_tracking_app/HomeScreen.dart';
 import 'package:location_tracking_app/SignUp.dart';
 import 'package:location_tracking_app/HomePage.dart';
 class LogIn extends StatefulWidget {
@@ -78,7 +79,7 @@ class _LogInState extends State<LogIn> {
                          {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => HomePageWidget()),
+                            MaterialPageRoute(builder: (context) => HomeScreen()),
                            );
                         }
                     }
