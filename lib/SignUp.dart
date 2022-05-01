@@ -79,7 +79,7 @@ class _SignUpState extends State<SignUp> {
                 height: 50,
                 padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                 child: ElevatedButton(
-                  child: const Text('Login'),
+                  child: const Text('Sign Up'),
                   onPressed: ()async {
                     try {
                       final newUser = await _auth.createUserWithEmailAndPassword(
@@ -87,7 +87,7 @@ class _SignUpState extends State<SignUp> {
                           password: passwordController.text);
 
                       if(newUser!=null)
-                      {
+                       {
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => HomePageWidget()),

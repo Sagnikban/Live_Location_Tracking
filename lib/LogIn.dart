@@ -75,11 +75,11 @@ class _LogInState extends State<LogIn> {
                           password: passwordController.text);
 
                       if(user!=null)
-                        {
+                         {
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => HomePageWidget()),
-                          );
+                           );
                         }
                     }
                     catch(e)
