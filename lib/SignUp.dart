@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:location_tracking_app/HomePage.dart';
 import 'package:location_tracking_app/LogIn.dart';
+import  'package:cloud_firestore/cloud_firestore.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -16,6 +17,7 @@ class _SignUpState extends State<SignUp> {
   TextEditingController EmailController = TextEditingController();
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
   Widget build(BuildContext context) {
     return Padding(
         padding: const EdgeInsets.all(10),
@@ -82,17 +84,25 @@ class _SignUpState extends State<SignUp> {
                   child: const Text('Sign Up'),
                   onPressed: ()async {
                     try {
-                      final newUser = await _auth.createUserWithEmailAndPassword(
+                      UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
                           email: EmailController.text,
                           password: passwordController.text);
 
-                      if(newUser!=null)
-                       {
+                      firestore.collection('users').doc(userCredential.user!.uid).set({
+
+                        'email':EmailController.text,
+                        'username':nameController.text,
+                        'uid':userCredential.user!.uid,
+
+                      }   );
+
+
+
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => HomePageWidget()),
                         );
-                      }
+
                     }
 
                     catch(e)
