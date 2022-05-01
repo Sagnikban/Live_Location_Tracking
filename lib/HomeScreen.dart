@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -43,6 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget build(BuildContext context) {
     return Container(
+      color: Colors.lightBlueAccent,
       child:Row(
         children:[
           FutureBuilder(
@@ -51,8 +53,54 @@ class _HomeScreenState extends State<HomeScreen> {
          {
                if(snapshot.connectionState!= ConnectionState.done)
                return Text("loading")  ;
-               return Text("${name}");
-        }
+               return Column(
+                 children: [
+                   Row(
+                     children: [
+                       Container(
+                           padding:EdgeInsets.fromLTRB(70, 100, 30, 0),
+                           child: Text(
+                             "Hello!",
+                             style: TextStyle(
+                                 color: Colors.deepPurple,
+                                 fontWeight: FontWeight.w500,
+                                 fontSize: 30),
+                           )),
+
+                       Container(
+                           padding:EdgeInsets.fromLTRB(0, 100, 0, 0),
+                           child: Text(
+                             "${name}",
+                             style: TextStyle(
+                                 color: Colors.deepPurpleAccent,
+                                 fontWeight: FontWeight.w500,
+                                 fontSize: 30),
+                           )),
+                     ],
+                   ),
+
+                   Container(
+
+                       margin:EdgeInsets.fromLTRB(60, 30, 0, 0),
+                         decoration: BoxDecoration(
+                         //border: Border.all(color:Colors.green),
+                       ),
+
+                       child:Text('$email',
+         style: TextStyle(
+         color: Colors.purple,
+         fontWeight: FontWeight.w500,
+         fontSize: 30),
+         )
+
+                       ),
+
+
+                                    ],
+               );
+
+
+         }
 
           )
         ]
